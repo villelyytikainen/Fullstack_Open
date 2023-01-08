@@ -25,30 +25,33 @@ function App() {
 
 const Button = ({ handleClick, text }) => <button onClick={handleClick}>{text}</button>
 
-
-
 const Statistics = ({ good, neutral, bad }) => {
-    const all = good+neutral+bad;
-    const average = all/3
-    const positivePercentage = all < 1 ? 0 : (good/all)*100
+    const all = good + neutral + bad;
+    const average = all / 3
+    const positivePercentage = all < 1 ? 0 : (good / all) * 100
     return (
         <div>
-            <StatisticsLine text={"good"} amount={good}/>
-            <StatisticsLine text={"neutral"} amount={neutral}/>
-            <StatisticsLine text={"bad"} amount={bad}/>
-            <StatisticsLine text={"all"} amount={all}/>
-            <StatisticsLine text={"average"} amount={parseFloat(average).toPrecision(4)}/>
-            <StatisticsLine text={"positive"} amount={parseFloat(positivePercentage).toPrecision(4)}/>
+            <table>
+                <tbody>
+                    <StatisticsLine text={"good"} amount={good} />
+                    <StatisticsLine text={"neutral"} amount={neutral} />
+                    <StatisticsLine text={"bad"} amount={bad} />
+                    <StatisticsLine text={"all"} amount={all} />
+                    <StatisticsLine text={"average"} amount={parseFloat(average).toPrecision(4)} />
+                    <StatisticsLine text={"positive"} amount={parseFloat(positivePercentage).toPrecision(4)} />
+                </tbody>
+            </table>
         </div>
     )
 }
 
-const StatisticsLine = ({text, amount}) => {
+const StatisticsLine = ({ text, amount }) => {
 
-    return(
-        <div>
-            <p>{text}: {amount}</p>
-        </div>
+    return (
+        <tr>
+            <td>{text}:</td>
+            <td>{amount}</td>
+        </tr>
     )
 }
 
