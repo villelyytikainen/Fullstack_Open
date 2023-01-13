@@ -8,6 +8,9 @@ const App = () => {
             number: 123123
         }
     ])
+
+    const [filtered, setFiltered] = useState([])
+    const [newFilter, setNewFilter] = useState('')
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
 
@@ -29,14 +32,16 @@ const App = () => {
                 })
             setPersons(newPersons)
         }
-
     }
+
+    const handleFilterChange = (event) => setNewFilter(event.target.value)
     const handleNameChange = (event) => setNewName(event.target.value)
     const handleNumberChange = (event) => setNewNumber(event.target.value)
 
     return (
         <div>
             <h2>Phonebook</h2>
+            search: <input value={newFilter} onChange={handleFilterChange} />
             <form onSubmit={addNumber}>
                 <div>
                     name: <input value={newName} onChange={handleNameChange} />
