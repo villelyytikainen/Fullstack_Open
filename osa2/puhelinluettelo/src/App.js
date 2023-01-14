@@ -34,7 +34,12 @@ const App = () => {
         }
     }
 
-    const handleFilterChange = (event) => setNewFilter(event.target.value)
+    const handleFilterChange = (event) => {
+        const filter = persons.filter(person => person.name === event.target.value)
+        console.log(filter)
+        setFiltered(filter)
+        setNewFilter(event.target.value)
+    }
     const handleNameChange = (event) => setNewName(event.target.value)
     const handleNumberChange = (event) => setNewNumber(event.target.value)
 
@@ -53,11 +58,10 @@ const App = () => {
             </form>
             <h2>Numbers</h2>
             <ul>
-                <Persons persons={persons} />
+                {newFilter.length > 0 ? <Persons persons={filtered} /> : <Persons persons={persons} />}
             </ul>
         </div>
     )
-
 }
 
 export default App
