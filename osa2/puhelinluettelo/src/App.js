@@ -1,20 +1,22 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 
 const App = () => {
-    const [persons, setPersons] = useState([
-        {
-            name: 'Arto Hellas',
-            number: 123123
-        }
-    ])
-
+    const [persons, setPersons] = useState([])
     const [filtered, setFiltered] = useState([])
     const [newFilter, setNewFilter] = useState('')
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
+
+    const getPersons = async() => {
+        const promise = await fetch('http://localhost:3001/persons')
+        const response = await promise.json()
+        setPersons(response)
+    }
+
+    useEffect(() => getPersons, [])
 
     const addNumber = (event) => {
         const newPersons = []

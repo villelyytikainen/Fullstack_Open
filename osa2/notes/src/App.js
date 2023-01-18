@@ -1,10 +1,19 @@
 import Note from './components/Note'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const App = (props) => {
-    const [notes, setNotes] = useState(props.notes)
-    const [newNote, setNewNote] = useState('a new note')
+    const [notes, setNotes] = useState([])
+    const [newNote, setNewNote] = useState('')
     const [showAll, setShowAll] = useState(true)
+
+    useEffect(() => {
+        console.log('effect')
+        const promise = fetch('http://localhost:3001/notes')
+        const response = promise.then(response => response.json())
+        response.then(data => {
+            setNotes([...data])
+        })
+    }, [])
 
     const notesToShow = showAll ? notes : notes.filter(note => note.important === true)
 
@@ -38,7 +47,7 @@ const App = (props) => {
                     <Note key={note.id} note={note} />)}
             </ul>
             <form onSubmit={addNote}>
-                <input  placeholder={newNote} onChange={handleNoteChange}/>
+                <input placeholder={newNote} onChange={handleNoteChange} />
                 <button type="submit">save</button>
             </form>
         </div>
